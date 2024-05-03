@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const bcrypt = require('bcrypt');
 
 const register = async (req, res) => {
 
@@ -34,13 +35,19 @@ const login = async (req, res) => {
       return res.status(400).send('No se encontro el usuario.');
     }
 
+    const match = await bcrypt.compare(req.body.password, user.password);
+
+    if (!match) {
+      return res.status(400).send('Contraseña incorrecta.');
+    }
+
     const token = jwt.sign(
       { userId: user._id }, 
       process.env.SECRET, 
       { expiresIn: '10min' }
     );
 
-    res.status(200).json({ message: 'Usuario loggeado correctamente', token });
+    res.status(200).json({ message: 'Usuario loggeado correctamente ✅ (Utiliza el siguinete token para hacer consultas 👇🏻)', token });
 
   } catch (error) {
     console.error(error);
