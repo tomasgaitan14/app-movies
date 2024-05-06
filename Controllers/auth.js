@@ -8,7 +8,7 @@ const register = async (req, res) => {
 
     let userExists = await User.findOne({ email: req.body.email });
     if (userExists) {
-      return res.status(400).send('El usuario ya está registrado.');
+      return res.status(400).json({ message: 'El usuario ya está registrado.'});
     }
 
     const user = new User({ 
@@ -19,10 +19,10 @@ const register = async (req, res) => {
     });
     await user.save();
 
-    res.status(200).send('Usuario registrado exitosamente.');
+    res.status(200).json({ message: 'Usuario registrado exitosamente.'});
   } catch (error) {
     console.error(error);
-    res.status(500).send('Error interno del servidor.');
+    res.status(500).json({ message: 'Error interno del servidor.'});
   }
 };
 
@@ -32,13 +32,13 @@ const login = async (req, res) => {
     const user = await User.findOne({ email: req.body.email});
 
     if (!user) {
-      return res.status(400).send('No se encontro el usuario.');
+      return res.status(400).json({ message: 'No se encontro el usuario.'});
     }
 
     const match = await bcrypt.compare(req.body.password, user.password);
 
     if (!match) {
-      return res.status(400).send('Contraseña incorrecta.');
+      return res.status(400).json({ message: 'Contraseña incorrecta.'});
     }
 
     const token = jwt.sign(
@@ -47,11 +47,11 @@ const login = async (req, res) => {
       { expiresIn: '10min' }
     );
 
-    res.status(200).json({ message: 'Usuario loggeado correctamente ✅ (Utiliza el siguinete token para hacer consultas 👇🏻)', token });
+    res.status(200).json({ message: 'Usuario loggeado correctamente', token });
 
   } catch (error) {
     console.error(error);
-    res.status(500).send('Error interno del servidor.');
+    res.status(500).json({ message: 'Error interno del servidor.'});
   }
 };
 

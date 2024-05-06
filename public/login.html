@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!--Data or Content-->
+        <div class="box-1">
+            <div class="content-holder">
+                <h2>Bienvenido👋🏼!</h2>
+                <button class="button-1" onclick="signup()">Registrarse</button>
+                <button class="button-2" onclick="login()">Iniciar Sesion</button>
+            </div>
+        </div>
+
+        <!--Forms-->
+        <div class="box-2">
+            <div class="login-form-container">
+                <h1>Iniciar sesion</h1>
+                <form id="loginForm">
+                    <input type="email" placeholder="email" class="input-field" id="email-login">
+                    <br><br>
+                    <input type="password" placeholder="password" class="input-field" id="password-login">
+                    <br><br>
+                    <button class="login-button" type="submit">Acceder</button>
+                </form>
+            </div>
+
+            <!--Create Container for Signup form-->
+            <div class="signup-form-container" style="display: none;">
+                <h1>Registro</h1>
+                <form id="signupForm">
+                    <input type="text" placeholder="Username" class="input-field" id="username-register">
+                    <br><br>
+                    <input type="email" placeholder="Email" class="input-field" id="email-register">
+                    <br><br>
+                    <input type="password" placeholder="Password" class="input-field" id="password-register">
+                    <br><br>
+                    <button class="signup-button" type="submit">Registrarse</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>
